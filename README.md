@@ -1,2 +1,3 @@
-# pop-setup
-A personal setup menu for my pop-os
+# Setup of a PopOS
+
+This little script allows you to set-up an entire PopOS with nice things.
