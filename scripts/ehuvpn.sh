@@ -44,7 +44,7 @@ if (whiptail --scrolltext --title "Do you accept the terms in the license agreem
         sleep 0.10
     done
 else
-    printf "\r  x VPN not installed \n"
+    printf "\r  ✘ VPN not installed \n"
     exit
 fi
 cd
@@ -73,6 +73,6 @@ if (whiptail --title "Credentials configuration" --yesno "Do you want to preconf
     fi
     printf "\r  ✔ Credential configuration \n"
 else
-    printf "\r  x Credential configuration \n"
+    printf "\r  ✘ Credential configuration \n"
 fi
 

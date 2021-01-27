@@ -28,5 +28,5 @@ if (whiptail --title "Eclipse Instalation" --yesno "Do you want to install Eclip
   done
   printf "\r  ✔ Eclipse installed \n"
 else
-  printf "\r  x Eclipse not installed \n"
+  printf "\r  ✘ Eclipse not installed \n"
 fi
