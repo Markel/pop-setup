@@ -69,7 +69,7 @@ if (whiptail --title "Credentials configuration" --yesno "Do you want to preconf
     PASSWORD=$(whiptail --passwordbox "Please, introduce your password:" 8 78 --title "Password configuration" 3>&1 1>&2 2>&3)
     exitstatus=$?
     if [ $exitstatus = 0 ]; then
-        printf "\n%s" "export EHUuser=\"$PASSWORD\"" >> .profile
+        printf "\n%s" "export EHUpass=\"$PASSWORD\"" >> .profile
     fi
     printf "\r  ✔ Credential configuration \n"
 else
