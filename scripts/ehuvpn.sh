@@ -6,7 +6,7 @@
 
 sudo printf "" # Check sudo
 
-sp="/-\|"
+sp="⠙⠸⠼⠴⠦⠧⠇⠏⠋"
 i=1
 
 ### Download the file from EHU's servers ###
@@ -14,10 +14,10 @@ curl -sSL -o $HOME/Downloads/ehuvpn.tar.gz https://www.ehu.eus/documents/1870470
 PID=$!
 while [ -d /proc/$PID ]
 do
-  printf "\r  [${sp:i++%${#sp}:1}] Downloading file"
+  printf "\r  ${sp:i++%${#sp}:1} Downloading file"
   sleep 0.10
 done
-printf "\r  [✔] File downloaded \n"
+printf "\r  ✔ File downloaded \n"
 
 ### Uncompressing ###
 rm -r $HOME/Downloads/ehuvpn 2> /dev/null
@@ -26,30 +26,30 @@ tar xzf $HOME/Downloads/ehuvpn.tar.gz -C $HOME/Downloads/ehuvpn &
 PID=$!
 while [ -d /proc/$PID ]
 do
-  printf "\r  [${sp:i++%${#sp}:1}] Extracting file"
+  printf "\r  ${sp:i++%${#sp}:1} Extracting file"
   sleep 0.10
 done
-printf "\r  [✔] File extracted \n"
+printf "\r  ✔ File extracted \n"
 
 
 ### Start installing VPN ###
-printf "\r  [${sp:i++%${#sp}:1}] Installing VPN"
+printf "\r  ${sp:i++%${#sp}:1} Installing VPN"
 cd $HOME/Downloads/ehuvpn/$(ls $HOME/Downloads/ehuvpn | grep anyconnect)/vpn/
 if (whiptail --scrolltext --title "Do you accept the terms in the license agreement?" --yesno "$(cat license.txt)" 20 78); then
     rm license.txt # That way it does not have to accept the license
     sudo ./vpn_install.sh > /dev/null &
     while [ -d /proc/$PID ]
     do
-        printf "\r  [${sp:i++%${#sp}:1}] Installing VPN"
+        printf "\r  ${sp:i++%${#sp}:1} Installing VPN"
         sleep 0.10
     done
 else
-    printf "\r  [x] VPN not installed \n"
+    printf "\r  x VPN not installed \n"
     exit
 fi
 cd
-printf "\r  [✔] VPN installed \n"
-printf "\r  [${sp:i++%${#sp}:1}] Credential configuration"
+printf "\r  ✔ VPN installed \n"
+printf "\r  ${sp:i++%${#sp}:1} Credential configuration"
 sleep 0.1 # Just for cleanes
 
 
@@ -71,8 +71,8 @@ if (whiptail --title "Credentials configuration" --yesno "Do you want to preconf
     if [ $exitstatus = 0 ]; then
         printf "\n%s" "export EHUuser=\"$PASSWORD\"" >> .profile
     fi
-    printf "\r  [✔] Credential configuration \n"
+    printf "\r  ✔ Credential configuration \n"
 else
-    printf "\r  [x] Credential configuration \n"
+    printf "\r  x Credential configuration \n"
 fi
 

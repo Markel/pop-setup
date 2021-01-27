@@ -6,7 +6,7 @@
 
 sudo printf "" # Check sudo
 
-sp="/-\|"
+sp="⠙⠸⠼⠴⠦⠧⠇⠏⠋"
 i=1
 
 ### Download latest VSCode version ###
@@ -14,10 +14,10 @@ curl -sSL -o $HOME/Downloads/vscode.deb https://update.code.visualstudio.com/lat
 PID=$!
 while [ -d /proc/$PID ]
 do
-  printf "\r  [${sp:i++%${#sp}:1}] Downloading VSCode"
+  printf "\r  ${sp:i++%${#sp}:1} Downloading VSCode"
   sleep 0.10
 done
-printf "\r  [✔] VSCode downloaded \n"
+printf "\r  ✔ VSCode downloaded \n"
 
 
 ### Install the .deb ###
@@ -25,10 +25,10 @@ sudo dpkg -i $HOME/Downloads/vscode.deb >/dev/null &
 PID=$!
 while [ -d /proc/$PID ]
 do
-  printf "\r  [${sp:i++%${#sp}:1}] Installing VSCode"
+  printf "\r  ${sp:i++%${#sp}:1} Installing VSCode"
   sleep 0.10
 done
-printf "\r  [✔] VSCode installed \n"
+printf "\r  ✔ VSCode installed \n"
 
 
 ### Extensions selection ###
@@ -80,8 +80,8 @@ done < results >/dev/null 2>&1 &
 PID=$!
 while [ -d /proc/$PID ]
 do
-  printf "\r  [${sp:i++%${#sp}:1}] Installing Extensions"
+  printf "\r  ${sp:i++%${#sp}:1} Installing Extensions"
   sleep 0.10
 done
 rm results
-printf "\r  [✔] Extensions installed \n"
+printf "\r  ✔ Extensions installed \n"
