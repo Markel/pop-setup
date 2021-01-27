@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sudo printf "" # Set a sudo state for the session
+sudo printf "\n" # Set a sudo state for the session
 
 sp="⠙⠸⠼⠴⠦⠧⠇⠏⠋"
 i=1
@@ -12,6 +12,7 @@ do
   printf "\r${sp:i++%${#sp}:1} Preparations: Updating and upgrading system"
   sleep 0.10
 done
+sleep 0.15
 printf "\r"
 
 ### Extensions selection ###
@@ -26,11 +27,11 @@ while read choice
 do
   case $choice in
     "EHU VPN")
-      printf "EHU VPN\n "
+      printf "\rEHU VPN\n "
       curl -sSL setup.markel.dev/scripts/ehuvpn.sh | bash -
     ;;
     "Java Dev") 
-      printf "Java Development Environment\n "
+      printf "\rJava Development Environment\n "
       curl -sSL setup.markel.dev/scripts/java.sh | bash -
     ;;
     "LateX")
@@ -42,17 +43,19 @@ do
         printf "\r${sp:i++%${#sp}:1} Downloading LateX (this may take a while...)"
         sleep 0.10
       done
-      printf "\r✔ LateX\n "
+      printf "\r✔ LateX                                             \n" # Oh shells...
     ;;
     "Node+NPM")
-      printf "Javascript Development Environment\n "
+      printf "\rJavascript Development Environment\n "
       curl -sSL setup.markel.dev/scripts/node.sh | bash -
     ;;
     "VSCode")
-      printf "Visual Studio Code\n "
+      printf "\rVisual Studio Code\n "
       curl -sSL setup.markel.dev/scripts/vscode.sh | bash -
     ;;
     *)
     ;;
   esac
 done < selection
+
+rm selection

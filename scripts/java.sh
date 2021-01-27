@@ -19,7 +19,7 @@ done
 printf "\r  ✔ Java Development Environment installed \n"
 
 if (whiptail --title "Eclipse Instalation" --yesno "Do you want to install Eclipse from the snap store?" 10 78); then
-  sudo snap install eclipse --edge --classic > /dev/null &
+  sudo snap install eclipse --edge --classic > /dev/null 2>&1 3>&1 &
   PID=$!
   while [ -d /proc/$PID ]
   do
