@@ -57,20 +57,22 @@ sleep 0.1 # Just for cleanes
 if (whiptail --title "Credentials configuration" --yesno "Do you want to preconfigure the credentials and create the aliases?\nTake in mind that the credentials will be saved as environment variables, consider that on your threat model." 10 78); then
     touch .profile
     touch .bash_aliases
-    printf '\n%s' '# Comandos para conectarse a la VPN de UPV' >> .bash_aliases
+    printf '\n%s' '# Comandos para conectarse a la VPN de UPV' >> $HOME/.bash_aliases
     printf "\n%s" "alias ehuvpn='printf \"%s\n%s\n\" \$EHUuser \$EHUpass | /opt/cisco/anyconnect/bin/vpn -s connect vpn.ehu.es'" >> .bash_aliases
-    printf "\n%s\n" "alias ehuvpnd='/opt/cisco/anyconnect/bin/vpn disconnect'" >> .bash_aliases
+    printf "\n%s\n" "alias ehuvpnd='/opt/cisco/anyconnect/bin/vpn disconnect'" >> $HOME/.bash_aliases
     
     USER=$(whiptail --inputbox "Introduce your EHU LDAP:" 8 39 --title "User configuration" 3>&1 1>&2 2>&3)
     exitstatus=$?
     if [ $exitstatus = 0 ]; then
-        printf "\n%s" "export EHUuser=\"$USER\"" >> .profile
+        printf "\n%s" "export EHUuser=\"$USER\"" >> $HOME/.profile
     fi
     PASSWORD=$(whiptail --passwordbox "Please, introduce your password:" 8 78 --title "Password configuration" 3>&1 1>&2 2>&3)
     exitstatus=$?
     if [ $exitstatus = 0 ]; then
-        printf "\n%s" "export EHUpass=\"$PASSWORD\"" >> .profile
+        printf "\n%s" "export EHUpass=\"$PASSWORD\"" >> $HOME/.profile
     fi
+    . ~/.profile
+    . ~/.bash_aliases
     printf "\r  ✔ Credential configuration \n"
 else
     printf "\r  ✘ Credential configuration \n"

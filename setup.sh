@@ -13,11 +13,12 @@ do
   sleep 0.10
 done
 sleep 0.15
-printf "\r"
+printf "\r                                                                         "
 
 ### Extensions selection ###
 whiptail --title "Markel Ferro's Setup" --checklist --separate-output "Choose with the space bar the snippets to execute:" 20 78 13 \
   "EHU VPN" "\`ehuvpn\` will connect to EHU's VPN with your LDAP" off \
+  "EHU SSH" "\`ehush\` will connect to EHU's SSH" off \
   "Java Dev" "Install JDK + Eclipse (optional)" off \
   "LateX" "Use TeXlive with TeXstudio" on \
   "Node+NPM" "JS suite + Gitduck console (optional)" on \
@@ -29,6 +30,17 @@ do
     "EHU VPN")
       printf "\rEHU VPN\n "
       curl -sSL setup.markel.dev/scripts/ehuvpn.sh | bash -
+    ;;
+    "EHU SSH")
+      ### Download latest VSCode version ###
+      curl -sSL setup.markel.dev/scripts/ehussh.sh | bash - &
+      PID=$!
+      while [ -d /proc/$PID ]
+      do
+        printf "\r${sp:i++%${#sp}:1} Setting up the SSH"
+        sleep 0.10
+      done
+      printf "\r✔ SSH Configuration                                \n" # Oh shells...
     ;;
     "Java Dev") 
       printf "\rJava Development Environment\n "
