@@ -20,9 +20,10 @@ whiptail --title "Markel Ferro's Setup" --checklist --separate-output "Choose wi
   "EHU VPN" "\`ehuvpn\` will connect to EHU's VPN with your LDAP" off \
   "EHU SSH" "\`ehush\` will connect to EHU's SSH" off \
   "Java Dev" "Install JDK + Eclipse (optional)" off \
-  "Mathematica" "Download and install from EHU's servers" on \
+  "Mathematica" "Download and install from EHU's servers" off \
   "LateX" "Use TeXlive with TeXstudio" on \
   "Node+NPM" "JS suite + Gitduck console (optional)" on \
+  "Program bundle" "Install multiple programs" on \
   "VSCode" "Install VSCode with a selection of plugins" on 2>selection
   
 while read choice
@@ -65,6 +66,10 @@ do
     "Node+NPM")
       printf "\rJavascript Development Environment\n "
       curl -sSL setup.markel.dev/scripts/node.sh | bash -
+    ;;
+    "Program bundle")
+      printf "\rProgram bundle\n "
+      curl -sSL setup.markel.dev/scripts/bundle.sh | bash -
     ;;
     "VSCode")
       printf "\rVisual Studio Code\n "
