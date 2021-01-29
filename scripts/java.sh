@@ -6,6 +6,8 @@
 
 sudo printf "" # Check sudo
 
+sudo apt-get install snapd -y > /dev/null
+
 sp="⠙⠸⠼⠴⠦⠧⠇⠏⠋"
 i=1
 
