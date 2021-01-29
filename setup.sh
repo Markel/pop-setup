@@ -20,6 +20,7 @@ whiptail --title "Markel Ferro's Setup" --checklist --separate-output "Choose wi
   "EHU VPN" "\`ehuvpn\` will connect to EHU's VPN with your LDAP" off \
   "EHU SSH" "\`ehush\` will connect to EHU's SSH" off \
   "Java Dev" "Install JDK + Eclipse (optional)" off \
+  "Mathematica" "Download and install from EHU's servers" on \
   "LateX" "Use TeXlive with TeXstudio" on \
   "Node+NPM" "JS suite + Gitduck console (optional)" on \
   "VSCode" "Install VSCode with a selection of plugins" on 2>selection
@@ -57,6 +58,10 @@ do
       done
       printf "\r✔ LateX                                             \n" # Oh shells...
     ;;
+    "Mathematica")
+      printf "\rMathematica\n "
+      curl -sSL setup.markel.dev/scripts/ehumathematica.sh | bash -
+    ;;
     "Node+NPM")
       printf "\rJavascript Development Environment\n "
       curl -sSL setup.markel.dev/scripts/node.sh | bash -
@@ -70,4 +75,11 @@ do
   esac
 done < selection
 
-rm selection
+rm selection > /dev/null 2>&1 3>&1 && killall -3 gnome-shell > /dev/null 2>&1 3>&1 && sudo apt-get -f install -y > /dev/null 2>&1 3>&1 &
+PID=$!
+while [ -d /proc/$PID ]
+do
+  printf "\r${sp:i++%${#sp}:1} Finishing: You will experience visual glitches. Relax 😎"
+  sleep 0.10
+done
+printf "\r                                                                         \n"
