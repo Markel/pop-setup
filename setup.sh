@@ -5,6 +5,7 @@ sudo printf "\n" # Set a sudo state for the session
 sp="⠙⠸⠼⠴⠦⠧⠇⠏⠋"
 i=1
 export ok="\e[1;32m✔\e[0;0m"
+export bad="\e[0;31m✘\e[0;0m"
 
 sudo apt-get update > /dev/null && sudo apt-get upgrade > /dev/null &
 PID=$!

@@ -18,7 +18,7 @@ do
   printf "\r  ${sp:i++%${#sp}:1} Installing Java Development Environment"
   sleep 0.10
 done
-printf "\r  $ok Java Development Environment installed \n"
+printf "\r  $ok Java Development Environment installed   \n"
 
 if (whiptail --title "Eclipse Instalation" --yesno "Do you want to install Eclipse from the snap store?" 10 78); then
   sudo snap install eclipse --edge --classic > /dev/null 2>&1 3>&1 &
@@ -30,5 +30,5 @@ if (whiptail --title "Eclipse Instalation" --yesno "Do you want to install Eclip
   done
   printf "\r  $ok Eclipse installed \n"
 else
-  printf "\r  ✘ Eclipse not installed \n"
+  printf "\r  $bad Eclipse not installed \n"
 fi

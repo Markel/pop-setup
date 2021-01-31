@@ -13,7 +13,7 @@ SERVER="dif-linuxserver.ehu.es"
 SERVER=$(whiptail --inputbox "Introduce your SSH user:" 8 39 dif-linuxserver.ehu.es --title "User configuration" 3>&1 1>&2 2>&3)
 exitstatus=$?
 if [ $exitstatus != 0 ]; then
-  printf "✘ SSH not installed"
+  printf "$bad SSH not installed"
   exit
 fi
 

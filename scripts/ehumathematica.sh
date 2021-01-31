@@ -22,14 +22,14 @@ change_credentials() {
   EHUuser=$(whiptail --inputbox "Introduce your LDAP:" 8 39 --title "User configuration" 3>&1 1>&2 2>&3)
   exitstatus=$?
   if [ $exitstatus != 0 ]; then
-    printf "\r  ✘ Mathematica not downloaded nor installed (invalid credentials) \n"
+    printf "\r  $bad Mathematica not downloaded nor installed (invalid credentials) \n"
     exit
   fi
 
   EHUpass=$(whiptail --passwordbox "Please, introduce your password:" 8 78 --title "Password configuration" 3>&1 1>&2 2>&3)
   exitstatus=$?
   if [ $exitstatus != 0 ]; then
-    printf "\r  ✘ Mathematica not downloaded nor installed (invalid credentials) \n"
+    printf "\r  $bad Mathematica not downloaded nor installed (invalid credentials) \n"
     exit
   fi
 }
@@ -37,7 +37,7 @@ change_credentials() {
 login_info() {
   ((attempts_remain--))
   if [ $attempts_remain -le 0 ]; then
-    printf "\r  ✘ Mathematica not downloaded nor installed. Error code: $(curl -o /dev/null --user $EHUuser:$EHUpass -s -w "%{http_code}\n" https://www.ehu.eus/liz/m4s/mathematica_for_students/v12.1.1/) \n"
+    printf "\r  $bad Mathematica not downloaded nor installed. Error code: $(curl -o /dev/null --user $EHUuser:$EHUpass -s -w "%{http_code}\n" https://www.ehu.eus/liz/m4s/mathematica_for_students/v12.1.1/) \n"
     exit
   fi
   whiptail --title "Login to EHU/UPV" --msgbox "You must login to the UPV/EHU servers to download Mathematica. Repeated fails may represent that the 12.1.1 version is not available anymore, file a bug in that case. Login has failed $attempts_remain times." 10 78
@@ -51,7 +51,7 @@ if [ $(ls $HOME/Downloads | grep Mathematica | wc -l) = "1" ]; then
   if (whiptail --title "Previous Mathematica Download" --yesno "Do you want to use the $(ls $HOME/Downloads | grep Mathematica) located in Downloads? Only select yes if you are sure that it is a not corrupted/incompleted version of Mathematica, otherwise the instalation will fail." 10 78) then
     #* Use the existing Mathematica ISO
     ISONAME=$(ls $HOME/Downloads | grep Mathematica)
-    printf "\r  ✘ Mathematica not downloaded (using previous download) \n"
+    printf "\r  $bad Mathematica not downloaded (using previous download) \n"
   else
     #* Do not use the existing Mathematica ISO (finish the download)
     printf "\r  ${sp:i++%${#sp}:1} Logging in to EHU's servers"

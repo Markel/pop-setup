@@ -37,5 +37,5 @@ if (whiptail --title "Gitduck console Instalation" --yesno "Do you want to insta
   done
   printf "\r  $ok Gitduck console installed \n"
 else
-  printf "\r  ✘ Gitduck console not installed \n"
+  printf "\r  $bad Gitduck console not installed \n"
 fi
