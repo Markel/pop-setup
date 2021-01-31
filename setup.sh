@@ -80,7 +80,7 @@ do
   esac
 done < selection
 
-rm selection > /dev/null 2>&1 3>&1 && killall -3 gnome-shell > /dev/null 2>&1 3>&1 && sudo apt-get -f install -y > /dev/null 2>&1 3>&1 &
+rm selection > /dev/null 2>&1 3>&1 && sudo apt-get -f install -y > /dev/null 2>&1 3>&1 && sleep 0.75 && killall -3 gnome-shell > /dev/null 2>&1 3>&1 && sleep 0.1 & # The sleeps are so the user doesn't scare
 PID=$!
 while [ -d /proc/$PID ]
 do

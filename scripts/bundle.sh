@@ -14,6 +14,7 @@ i=1
 whiptail --title "Program instalation" --checklist --separate-output "Choose the programs to install:" 20 78 13 \
   "Authy" "2FA Code manager" on \
   "GIMP" "GNU Image manipulation program" on \
+  "gThumb" "A better image viewer" on \
   "Inkscape" "Vector graphics editor" off \
   "OBS" "Open Broadcaster Software" on \
   "Pomodoro" "Get things done by taking short breaks" on \
@@ -41,6 +42,17 @@ do
         sleep 0.10
       done
       printf "\r  ✔ GIMP installed \n"
+    ;;
+    "gThumb")
+      sudo add-apt-repository ppa:dhor/myway -y > /dev/null 2>&1 3>&1 && sudo apt-get install gthumb -y > /dev/null &
+      PID=$!
+      while [ -d /proc/$PID ]
+      do
+        printf "\r  ${sp:i++%${#sp}:1} Installing gThumb"
+        sleep 0.10
+      done
+      printf "\r  ✔ gThumb installed \n"
+      sudo add-apt-repository --remove ppa:dhor/myway -y > /dev/null 2>&1 3>&1 # I don't like this repository too much
     ;;
     "Inkscape")
       sudo apt-get install inkscape -y > /dev/null &
