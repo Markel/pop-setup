@@ -18,7 +18,9 @@ whiptail --title "Program instalation" --checklist --separate-output "Choose the
   "Inkscape" "Vector graphics editor" off \
   "OBS" "Open Broadcaster Software" on \
   "Pomodoro" "Get things done by taking short breaks" on \
-  "Sublime Merge" "Git Client, done Sublime" on 2>programs
+  "Sublime Merge" "Git Client, done Sublime" on \
+  "Syncthing" "Continuous file synchronization program" on \
+  "Veracrypt" "Disk encryption" on 2>programs
 
 while read choice
 do
@@ -93,6 +95,27 @@ do
         sleep 0.10
       done
       printf "\r  ✔ Sublime Merge installed \n"
+    ;;
+    "Syncthing")
+      sudo apt-get install apt-transport-https syncthing -y > /dev/null &
+      PID=$!
+      while [ -d /proc/$PID ]
+      do
+        printf "\r  ${sp:i++%${#sp}:1} Installing Syncthing"
+        sleep 0.10
+      done
+      printf "\r  ✔ Syncthing installed (configuration needed) \n"
+    ;;
+    "Veracrypt")
+      curl -sSL -o $HOME/Downloads/veracrypt.deb https://launchpad.net/veracrypt/trunk/1.24-update7/+download/veracrypt-1.24-Update7-Ubuntu-20.10-amd64.deb && 
+      sudo dpkg -i $HOME/Downloads/veracrypt.deb >/dev/null &
+      PID=$!
+      while [ -d /proc/$PID ]
+      do
+        printf "\r  ${sp:i++%${#sp}:1} Installing Veracrypt"
+        sleep 0.10
+      done
+      printf "\r  ✔ Veracrypt installed \n"
     ;;
     *)
     ;;
