@@ -17,7 +17,7 @@ do
   printf "\r  ${sp:i++%${#sp}:1} Downloading file"
   sleep 0.10
 done
-printf "\r  ✔ File downloaded \n"
+printf "\r  $ok File downloaded \n"
 
 ### Uncompressing ###
 rm -r $HOME/Downloads/ehuvpn 2> /dev/null
@@ -29,7 +29,7 @@ do
   printf "\r  ${sp:i++%${#sp}:1} Extracting file"
   sleep 0.10
 done
-printf "\r  ✔ File extracted \n"
+printf "\r  $ok File extracted \n"
 
 
 ### Start installing VPN ###
@@ -48,7 +48,7 @@ else
     exit
 fi
 cd
-printf "\r  ✔ VPN installed \n"
+printf "\r  $ok VPN installed \n"
 printf "\r  ${sp:i++%${#sp}:1} Credential configuration"
 sleep 0.1 # Just for cleanes
 
@@ -73,7 +73,7 @@ if (whiptail --title "Credentials configuration" --yesno "Do you want to preconf
     fi
     . ~/.profile
     . ~/.bash_aliases
-    printf "\r  ✔ Credential configuration \n"
+    printf "\r  $ok Credential configuration \n"
 else
     printf "\r  ✘ Credential configuration \n"
 fi

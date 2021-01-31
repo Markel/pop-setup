@@ -17,7 +17,7 @@ do
   printf "\r  ${sp:i++%${#sp}:1} Downloading VSCode"
   sleep 0.10
 done
-printf "\r  ✔ VSCode downloaded \n"
+printf "\r  $ok VSCode downloaded \n"
 
 
 ### Install the .deb ###
@@ -28,7 +28,7 @@ do
   printf "\r  ${sp:i++%${#sp}:1} Installing VSCode"
   sleep 0.10
 done
-printf "\r  ✔ VSCode installed \n"
+printf "\r  $ok VSCode installed \n"
 
 
 ### Extensions selection ###
@@ -84,4 +84,4 @@ do
   sleep 0.10
 done
 rm results
-printf "\r  ✔ Extensions installed \n"
+printf "\r  $ok Extensions installed \n"

@@ -16,7 +16,7 @@ do
   printf "\r  ${sp:i++%${#sp}:1} Installing NodeJS"
   sleep 0.10
 done
-printf "\r  ✔ NodeJS installed \n"
+printf "\r  $ok NodeJS installed \n"
 
 sudo apt-get install npm -y > /dev/null &
 PID=$!
@@ -25,7 +25,7 @@ do
   printf "\r  ${sp:i++%${#sp}:1} Installing NPM"
   sleep 0.10
 done
-printf "\r  ✔ NPM installed \n"
+printf "\r  $ok NPM installed \n"
 
 if (whiptail --title "Gitduck console Instalation" --yesno "Do you want to install the Gitduck console package from npm?" 10 78); then
   sudo npm install --global gitduck > /dev/null 2>&1 3>&1 &
@@ -35,7 +35,7 @@ if (whiptail --title "Gitduck console Instalation" --yesno "Do you want to insta
     printf "\r  ${sp:i++%${#sp}:1} Installing Gitduck console"
     sleep 0.10
   done
-  printf "\r  ✔ Gitduck console installed \n"
+  printf "\r  $ok Gitduck console installed \n"
 else
   printf "\r  ✘ Gitduck console not installed \n"
 fi

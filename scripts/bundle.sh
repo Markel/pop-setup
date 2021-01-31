@@ -33,7 +33,7 @@ do
         printf "\r  ${sp:i++%${#sp}:1} Installing Authy"
         sleep 0.10
       done
-      printf "\r  ✔ Authy installed \n"
+      printf "\r  $ok Authy installed \n"
     ;;
     "GIMP")
       sudo add-apt-repository ppa:otto-kesselgulasch/gimp -y > /dev/null 2>&1 3>&1 && sudo apt install gimp -y > /dev/null &
@@ -43,7 +43,7 @@ do
         printf "\r  ${sp:i++%${#sp}:1} Installing GIMP"
         sleep 0.10
       done
-      printf "\r  ✔ GIMP installed \n"
+      printf "\r  $ok GIMP installed \n"
     ;;
     "gThumb")
       sudo add-apt-repository ppa:dhor/myway -y > /dev/null 2>&1 3>&1 && sudo apt-get install gthumb -y > /dev/null &
@@ -53,7 +53,7 @@ do
         printf "\r  ${sp:i++%${#sp}:1} Installing gThumb"
         sleep 0.10
       done
-      printf "\r  ✔ gThumb installed \n"
+      printf "\r  $ok gThumb installed \n"
       sudo add-apt-repository --remove ppa:dhor/myway -y > /dev/null 2>&1 3>&1 # I don't like this repository too much
     ;;
     "Inkscape")
@@ -64,7 +64,7 @@ do
         printf "\r  ${sp:i++%${#sp}:1} Installing Inkscape"
         sleep 0.10
       done
-      printf "\r  ✔ Inkscape installed \n"
+      printf "\r  $ok Inkscape installed \n"
     ;;
     "OBS") 
       sudo add-apt-repository ppa:obsproject/obs-studio -y > /dev/null 2>&1 3>&1 && sudo apt-get install ffmpeg obs-studio -y > /dev/null &
@@ -74,7 +74,7 @@ do
         printf "\r  ${sp:i++%${#sp}:1} Installing OBS"
         sleep 0.10
       done
-      printf "\r  ✔ OBS installed \n"
+      printf "\r  $ok OBS installed \n"
     ;;
     "Pomodoro")
       sudo apt-get install gnome-shell-pomodoro -y > /dev/null &
@@ -84,7 +84,7 @@ do
         printf "\r  ${sp:i++%${#sp}:1} Installing Pomodoro"
         sleep 0.10
       done
-      printf "\r  ✔ Pomodoro installed \n"
+      printf "\r  $ok Pomodoro installed \n"
     ;;
     "Sublime Merge")
       sudo snap install sublime-merge --classic > /dev/null 2>&1 3>&1 &
@@ -94,7 +94,7 @@ do
         printf "\r  ${sp:i++%${#sp}:1} Installing Sublime Merge"
         sleep 0.10
       done
-      printf "\r  ✔ Sublime Merge installed \n"
+      printf "\r  $ok Sublime Merge installed \n"
     ;;
     "Syncthing")
       sudo apt-get install apt-transport-https syncthing -y > /dev/null &
@@ -104,7 +104,7 @@ do
         printf "\r  ${sp:i++%${#sp}:1} Installing Syncthing"
         sleep 0.10
       done
-      printf "\r  ✔ Syncthing installed (configuration needed) \n"
+      printf "\r  $ok Syncthing installed (configuration needed) \n"
     ;;
     "Veracrypt")
       curl -sSL -o $HOME/Downloads/veracrypt.deb https://launchpad.net/veracrypt/trunk/1.24-update7/+download/veracrypt-1.24-Update7-Ubuntu-20.10-amd64.deb && 
@@ -115,7 +115,7 @@ do
         printf "\r  ${sp:i++%${#sp}:1} Installing Veracrypt"
         sleep 0.10
       done
-      printf "\r  ✔ Veracrypt installed \n"
+      printf "\r  $ok Veracrypt installed \n"
     ;;
     *)
     ;;

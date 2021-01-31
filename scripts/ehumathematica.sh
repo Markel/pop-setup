@@ -59,7 +59,7 @@ if [ $(ls $HOME/Downloads | grep Mathematica | wc -l) = "1" ]; then
     do
       login_info
     done
-    printf "\r  ✔ Logged in to EHU's servers     \n"
+    printf "\r  $ok Logged in to EHU's servers     \n"
     curl -sSL -C - -o $HOME/Downloads/Mathematica.iso --user $EHUuser:$EHUpass https://www.ehu.eus/liz/m4s/mathematica_for_students/v12.1.1/Mathematica_12.1.1_LINUX.iso &
     PID=$!
     while [ -d /proc/$PID ]
@@ -67,7 +67,7 @@ if [ $(ls $HOME/Downloads | grep Mathematica | wc -l) = "1" ]; then
       printf "\r  ${sp:i++%${#sp}:1} Downloading Mathematica (this may take a while...)"
       sleep 0.10
     done
-    printf "\r  ✔ Mathematica downloaded                                 \n"
+    printf "\r  $ok Mathematica downloaded                                 \n"
   fi
 else
   #* Download the ISO as no is present (from 0)
@@ -76,7 +76,7 @@ else
   do
     login_info
   done
-  printf "\r  ✔ Logged in to EHU's servers    \n"
+  printf "\r  $ok Logged in to EHU's servers    \n"
   curl -sSL -o $HOME/Downloads/Mathematica.iso --user $EHUuser:$EHUpass https://www.ehu.eus/liz/m4s/mathematica_for_students/v12.1.1/Mathematica_12.1.1_LINUX.iso &
   PID=$!
   while [ -d /proc/$PID ]
@@ -84,7 +84,7 @@ else
     printf "\r  ${sp:i++%${#sp}:1} Downloading Mathematica (this may take a while...)"
     sleep 0.10
   done
-  printf "\r  ✔ Mathematica downloaded                                 \n"
+  printf "\r  $ok Mathematica downloaded                                 \n"
 fi
 
 
@@ -98,7 +98,7 @@ do
   printf "\r  ${sp:i++%${#sp}:1} Mounting instalation media"
   sleep 0.10
 done
-printf "\r  ✔ Instalation media mounted   \n"
+printf "\r  $ok Instalation media mounted   \n"
 
 ### INSTALL ###
 sudo /mnt/iso/Unix/Installer/MathInstaller -auto -silent &
@@ -108,4 +108,4 @@ do
   printf "\r  ${sp:i++%${#sp}:1} Installing Mathematica (this may take a while...)"
   sleep 0.10
 done
-printf "\r  ✔ Mathematica installed                                   \n"
+printf "\r  $ok Mathematica installed                                   \n"

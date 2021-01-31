@@ -4,6 +4,7 @@ sudo printf "\n" # Set a sudo state for the session
 
 sp="⠙⠸⠼⠴⠦⠧⠇⠏⠋"
 i=1
+export ok="\e[1;32m✔\e[0;0m"
 
 sudo apt-get update > /dev/null && sudo apt-get upgrade > /dev/null &
 PID=$!
@@ -13,7 +14,7 @@ do
   sleep 0.10
 done
 sleep 0.15
-printf "\r                                                                         "
+printf "\r$ok System updated and upgraded                   \n"
 
 ### Extensions selection ###
 whiptail --title "Markel Ferro's Setup" --checklist --separate-output "Choose with the space bar the snippets to execute:" 20 78 13 \
@@ -25,7 +26,25 @@ whiptail --title "Markel Ferro's Setup" --checklist --separate-output "Choose wi
   "Node+NPM" "JS suite + Gitduck console (optional)" on \
   "Program bundle" "Install multiple programs" on \
   "VSCode" "Install VSCode with a selection of plugins" on 2>selection
-  
+
+while read choice
+do
+  case $choice in
+  "Java Dev" | "Program bundle")
+    #? If you choose more than one of these options it executes the command twice, I actually don't know how to avoid without making it ugly
+    sudo apt-get install snapd -y > /dev/null 
+  ;;
+  esac
+done < selection &
+PID=$!
+while [ -d /proc/$PID ]
+do
+  printf "\r${sp:i++%${#sp}:1} Installing snap (requirement)"
+  sleep 0.10
+done
+printf "\r$ok Snap installed (requirement) \n" # Oh shells...
+
+
 while read choice
 do
   case $choice in
@@ -42,7 +61,7 @@ do
         printf "\r${sp:i++%${#sp}:1} Setting up the SSH"
         sleep 0.10
       done
-      printf "\r✔ SSH Configuration                                \n" # Oh shells...
+      printf "\r$ok SSH Configuration                                \n" # Oh shells...
     ;;
     "Java Dev") 
       printf "\rJava Development Environment\n "
@@ -57,7 +76,7 @@ do
         printf "\r${sp:i++%${#sp}:1} Downloading LateX (this may take a while...)"
         sleep 0.10
       done
-      printf "\r✔ LateX                                             \n" # Oh shells...
+      printf "\r$ok LateX                                             \n" # Oh shells...
     ;;
     "Mathematica")
       printf "\rMathematica\n "
@@ -87,4 +106,6 @@ do
   printf "\r${sp:i++%${#sp}:1} Finishing: You will experience visual glitches. Relax 😎"
   sleep 0.10
 done
-printf "\r                                                                         \n"
+printf "\r$ok Finished 🥳                                              \n"
+
+printf "\nThe setup process has finished, you may check the results above. Please check that everything was installed correctly. It is also recommended to reboot the computer to apply some changes, although it is not strictly necessary.\nEnjoy your day and DFTBA.\n"
