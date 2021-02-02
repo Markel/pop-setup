@@ -28,27 +28,40 @@ whiptail --title "Markel Ferro's Setup" --checklist --separate-output "Choose wi
   "Program bundle" "Install multiple programs" on \
   "VSCode" "Install VSCode with a selection of plugins" on 2>selection
 
+### SNAP SUPPORT ###
 while read choice
 do
   case $choice in
   "Java Dev" | "Program bundle")
-    #? If you choose more than one of these options it executes the command twice, I actually don't know how to avoid without making it ugly
-    sudo apt-get install snapd -y > /dev/null 
+    sudo apt-get install snapd -y > /dev/null &
+    PID=$!
+    while [ -d /proc/$PID ]
+    do
+      printf "\r${sp:i++%${#sp}:1} Installing snap (requirement)"
+      sleep 0.10
+    done;
+    printf "\r$ok Snap installed (requirement) \n"
   ;;
   esac
-done < selection &
-PID=$!
-while [ -d /proc/$PID ]
-do
-  printf "\r${sp:i++%${#sp}:1} Installing snap (requirement)"
-  sleep 0.10
-done
-printf "\r$ok Snap installed (requirement) \n" # Oh shells...
+done < selection
 
 
+
+### COMMANDS ###
 while read choice
 do
   case $choice in
+    # "Automatic login")
+    #   sudo sed -i 's/#  AutomaticLoginEnable = true/AutomaticLoginEnable = true/' /etc/gdm3/custom.conf &&
+    #   sudo sed -i "s/#  AutomaticLogin = user1/AutomaticLogin = $USER/" /etc/gdm3/custom.conf & #* The double quotes allow $USER to expand
+    #   PID=$!
+    #   while [ -d /proc/$PID ]
+    #   do
+    #     printf "\r${sp:i++%${#sp}:1} Setting automatic login for $USER"
+    #     sleep 0.10
+    #   done
+    #   printf "\r$ok Automatic login set for $USER          \n"
+    # ;;
     "EHU VPN")
       printf "\rEHU VPN\n "
       curl -sSL setup.markel.dev/scripts/ehuvpn.sh | bash -
