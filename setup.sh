@@ -15,6 +15,15 @@ while [ ! -f "$HOME/Documents/SetupInstaller/INSTALL_FINISHED" ]; do
   sudo -v
 done &
 
+### OFFLINE MODE ###
+if [ -f "setup.sh" ]; then
+  printf "🗀 \"Offline\" mode activated\n"
+  offline=true
+else
+  # printf "🌐 Online mode activated\n"
+  offline=false
+fi
+
 ### GLOBAL VARIABLES ###
 show_load() {
   while [ -d /proc/$PID ]
@@ -34,10 +43,12 @@ export bad="\e[0;31m✘\e[0;0m"
 export -f show_load
 
 ### PREREQUISITES ###
-sudo apt-get update > /dev/null && sudo apt-get upgrade > /dev/null & PID=$!
-LOAD_MESSAGE="Preparations: Updating and upgrading system"
-COMPLETE_MESSAGE="System updated and upgraded"
-show_load
+if [ "$offline" != true ] ; then
+  sudo apt-get update > /dev/null && sudo apt-get upgrade > /dev/null & PID=$!
+  LOAD_MESSAGE="Preparations: Updating and upgrading system"
+  COMPLETE_MESSAGE="System updated and upgraded"
+  show_load
+fi
 
 ### Extensions selection ###
 whiptail --title "Markel Ferro's Setup" --checklist --separate-output "Choose with the space bar the snippets to execute (B is beta):" 20 78 13 \
@@ -83,11 +94,19 @@ do
     "EHU VPN")
       printf "\rEHU VPN\n "
       spaces="  "
-      curl -sSL setup.markel.dev/scripts/ehuvpn.sh | bash -
+      if [ "$offline" = true ] ; then
+        ./scripts/ehuvpn.sh
+      else
+        curl -sSL setup.markel.dev/scripts/ehuvpn.sh | bash -
+      fi
     ;;
     "EHU SSH")
       spaces=""
-      curl -sSL setup.markel.dev/scripts/ehussh.sh | bash - & PID=$!
+      if [ "$offline" = true ] ; then
+        ./scripts/ehussh.sh
+      else
+        curl -sSL setup.markel.dev/scripts/ehussh.sh | bash - 
+      fi & PID=$!
       LOAD_MESSAGE="Setting up the SSH"
       COMPLETE_MESSAGE="SSH Configuration"
       show_load
@@ -95,11 +114,19 @@ do
     "Java Dev") 
       printf "\rJava Development Environment\n "
       spaces="  "
-      curl -sSL setup.markel.dev/scripts/java.sh | bash -
+      if [ "$offline" = true ] ; then
+        ./scripts/java.sh
+      else
+        curl -sSL setup.markel.dev/scripts/java.sh | bash -
+      fi
     ;;
     "LateX")
       spaces=""
-      curl -sSL setup.markel.dev/scripts/latex.sh | bash - & PID=$!
+      if [ "$offline" = true ] ; then
+        ./scripts/latex.sh
+      else
+        curl -sSL setup.markel.dev/scripts/latex.sh | bash - 
+      fi & PID=$!
       LOAD_MESSAGE="Downloading LateX (this may take a while...)"
       COMPLETE_MESSAGE="LateX"
       show_load
@@ -107,27 +134,47 @@ do
     "Mathematica")
       printf "\rMathematica\n "
       spaces="  "
-      curl -sSL setup.markel.dev/scripts/ehumathematica.sh | bash -
+      if [ "$offline" = true ] ; then
+        ./scripts/ehumathematica.sh
+      else
+        curl -sSL setup.markel.dev/scripts/ehumathematica.sh | bash -
+      fi
     ;;
     "Node+NPM")
       printf "\rJavascript Development Environment\n "
       spaces="  "
-      curl -sSL setup.markel.dev/scripts/node.sh | bash -
+      if [ "$offline" = true ] ; then
+        ./scripts/node.sh
+      else
+        curl -sSL setup.markel.dev/scripts/node.sh | bash -
+      fi
     ;;
     "Program bundle")
       printf "\rProgram bundle\n "
       spaces="  "
-      curl -sSL setup.markel.dev/scripts/bundle.sh | bash -
+      if [ "$offline" = true ] ; then
+        ./scripts/bundle.sh
+      else
+        curl -sSL setup.markel.dev/scripts/bundle.sh | bash -
+      fi
     ;;
     "Resolve")
       printf "\rDaVinci Resolve\n "
       spaces="  "
-      curl -sSL setup.markel.dev/scripts/resolve.sh | bash -
+      if [ "$offline" = true ] ; then
+        ./scripts/resolve.sh
+      else
+        curl -sSL setup.markel.dev/scripts/resolve.sh | bash -
+      fi
     ;;
     "VSCode")
       printf "\rVisual Studio Code\n "
       spaces="  "
-      curl -sSL setup.markel.dev/scripts/vscode.sh | bash -
+      if [ "$offline" = true ] ; then
+        ./scripts/vscode.sh
+      else
+        curl -sSL setup.markel.dev/scripts/vscode.sh | bash -
+      fi
     ;;
     *)
     ;;
