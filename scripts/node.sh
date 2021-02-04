@@ -6,36 +6,21 @@
 
 sudo -v # Check sudo
 
-sp="⠙⠸⠼⠴⠦⠧⠇⠏⠋"
-i=1
+sudo apt-get install nodejs -y > /dev/null & PID=$!
+LOAD_MESSAGE="Installing NodeJS"
+COMPLETE_MESSAGE="NodeJS installed"
+show_load
 
-sudo apt-get install nodejs -y > /dev/null &
-PID=$!
-while [ -d /proc/$PID ]
-do
-  printf "\r  ${sp:i++%${#sp}:1} Installing NodeJS"
-  sleep 0.10
-done
-printf "\r  $ok NodeJS installed \n"
-
-sudo apt-get install npm -y > /dev/null &
-PID=$!
-while [ -d /proc/$PID ]
-do
-  printf "\r  ${sp:i++%${#sp}:1} Installing NPM"
-  sleep 0.10
-done
-printf "\r  $ok NPM installed \n"
+sudo apt-get install npm -y > /dev/null & PID=$!
+LOAD_MESSAGE="Installing NPM"
+COMPLETE_MESSAGE="NPM installed"
+show_load
 
 if (whiptail --title "Gitduck console Instalation" --yesno "Do you want to install the Gitduck console package from npm?" 10 78); then
-  sudo npm install --global gitduck > /dev/null 2>&1 3>&1 &
-  PID=$!
-  while [ -d /proc/$PID ]
-  do
-    printf "\r  ${sp:i++%${#sp}:1} Installing Gitduck console"
-    sleep 0.10
-  done
-  printf "\r  $ok Gitduck console installed \n"
+  sudo npm install --global gitduck > /dev/null 2>&1 3>&1 & PID=$!
+  LOAD_MESSAGE="Installing Gitduck console"
+  COMPLETE_MESSAGE="Gitduck console installed"
+  show_load
 else
   printf "\r  $bad Gitduck console not installed \n"
 fi

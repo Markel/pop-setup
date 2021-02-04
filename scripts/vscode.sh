@@ -6,30 +6,17 @@
 
 sudo -v # Check sudo
 
-sp="⠙⠸⠼⠴⠦⠧⠇⠏⠋"
-i=1
-
 ### Download latest VSCode version ###
-curl -sSL -o $HOME/Downloads/vscode.deb https://update.code.visualstudio.com/latest/linux-deb-x64/stable &
-PID=$!
-while [ -d /proc/$PID ]
-do
-  printf "\r  ${sp:i++%${#sp}:1} Downloading VSCode"
-  sleep 0.10
-done
-printf "\r  $ok VSCode downloaded \n"
-
+curl -sSL -o $HOME/Downloads/vscode.deb https://update.code.visualstudio.com/latest/linux-deb-x64/stable & PID=$!
+LOAD_MESSAGE="Downloading VSCode"
+COMPLETE_MESSAGE="VSCode downloaded"
+show_load
 
 ### Install the .deb ###
-sudo dpkg -i $HOME/Downloads/vscode.deb >/dev/null &
-PID=$!
-while [ -d /proc/$PID ]
-do
-  printf "\r  ${sp:i++%${#sp}:1} Installing VSCode"
-  sleep 0.10
-done
-printf "\r  $ok VSCode installed \n"
-
+sudo dpkg -i $HOME/Downloads/vscode.deb >/dev/null & PID=$!
+LOAD_MESSAGE="Installing VSCode"
+COMPLETE_MESSAGE="VSCode installed"
+show_load
 
 ### Extensions selection ###
 whiptail --title "Extension instalation" --checklist --separate-output "Choose the extensions to install (cancel if you want a clean setup):" 20 78 13 \
@@ -76,12 +63,7 @@ do
     *)
     ;;
   esac
-done < results >/dev/null 2>&1 & 
-PID=$!
-while [ -d /proc/$PID ]
-do
-  printf "\r  ${sp:i++%${#sp}:1} Installing Extensions"
-  sleep 0.10
-done
-rm results
-printf "\r  $ok Extensions installed \n"
+done < results >/dev/null 2>&1 & PID=$!
+LOAD_MESSAGE="Installing Extensions"
+COMPLETE_MESSAGE="Extensions installed"
+show_load

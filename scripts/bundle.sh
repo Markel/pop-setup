@@ -6,11 +6,6 @@
 
 sudo -v # Check sudo
 
-sudo apt-get install snapd -y > /dev/null
-
-sp="⠙⠸⠼⠴⠦⠧⠇⠏⠋"
-i=1
-
 whiptail --title "Program instalation" --checklist --separate-output "Choose the programs to install:" 20 78 13 \
   "Authy" "2FA Code manager" on \
   "GIMP" "GNU Image manipulation program" on \
@@ -26,96 +21,60 @@ while read choice
 do
   case $choice in
     "Authy")
-      sudo snap install authy --beta > /dev/null 2>&1 3>&1 &
-      PID=$!
-      while [ -d /proc/$PID ]
-      do
-        printf "\r  ${sp:i++%${#sp}:1} Installing Authy"
-        sleep 0.10
-      done
-      printf "\r  $ok Authy installed \n"
+      sudo snap install authy --beta > /dev/null 2>&1 3>&1 & PID=$!
+      LOAD_MESSAGE="Installing Authy"
+      COMPLETE_MESSAGE="Authy installed"
+      show_load;
     ;;
     "GIMP")
-      sudo add-apt-repository ppa:otto-kesselgulasch/gimp -y > /dev/null 2>&1 3>&1 && sudo apt install gimp -y > /dev/null &
-      PID=$!
-      while [ -d /proc/$PID ]
-      do
-        printf "\r  ${sp:i++%${#sp}:1} Installing GIMP"
-        sleep 0.10
-      done
-      printf "\r  $ok GIMP installed \n"
+      sudo add-apt-repository ppa:otto-kesselgulasch/gimp -y > /dev/null 2>&1 3>&1 && sudo apt-get install gimp -y > /dev/null & PID=$!
+      LOAD_MESSAGE="Installing GIMP"
+      COMPLETE_MESSAGE="GIMP installed"
+      show_load;
     ;;
     "gThumb")
-      sudo add-apt-repository ppa:dhor/myway -y > /dev/null 2>&1 3>&1 && sudo apt-get install gthumb -y > /dev/null &
-      PID=$!
-      while [ -d /proc/$PID ]
-      do
-        printf "\r  ${sp:i++%${#sp}:1} Installing gThumb"
-        sleep 0.10
-      done
-      printf "\r  $ok gThumb installed \n"
-      sudo add-apt-repository --remove ppa:dhor/myway -y > /dev/null 2>&1 3>&1 # I don't like this repository too much
+      sudo add-apt-repository ppa:dhor/myway -y > /dev/null 2>&1 3>&1 && sudo apt-get install gthumb -y > /dev/null & PID=$!
+      LOAD_MESSAGE="Installing gThumb"
+      COMPLETE_MESSAGE="gThumb installed"
+      show_load
+      sudo add-apt-repository --remove ppa:dhor/myway -y > /dev/null 2>&1 3>&1; # I don't like this repository too much
     ;;
     "Inkscape")
-      sudo apt-get install inkscape -y > /dev/null &
-      PID=$!
-      while [ -d /proc/$PID ]
-      do
-        printf "\r  ${sp:i++%${#sp}:1} Installing Inkscape"
-        sleep 0.10
-      done
-      printf "\r  $ok Inkscape installed \n"
+      sudo apt-get install inkscape -y > /dev/null & PID=$!
+      LOAD_MESSAGE="Installing Inkscape"
+      COMPLETE_MESSAGE="Inkscape installed"
+      show_load;
     ;;
     "OBS") 
-      sudo add-apt-repository ppa:obsproject/obs-studio -y > /dev/null 2>&1 3>&1 && sudo apt-get install ffmpeg obs-studio -y > /dev/null &
-      PID=$!
-      while [ -d /proc/$PID ]
-      do
-        printf "\r  ${sp:i++%${#sp}:1} Installing OBS"
-        sleep 0.10
-      done
-      printf "\r  $ok OBS installed \n"
+      sudo add-apt-repository ppa:obsproject/obs-studio -y > /dev/null 2>&1 3>&1 && sudo apt-get install ffmpeg obs-studio -y > /dev/null & PID=$!
+      LOAD_MESSAGE="Installing OBS"
+      COMPLETE_MESSAGE="OBS installed"
+      show_load;
     ;;
     "Pomodoro")
-      sudo apt-get install gnome-shell-pomodoro -y > /dev/null &
-      PID=$!
-      while [ -d /proc/$PID ]
-      do
-        printf "\r  ${sp:i++%${#sp}:1} Installing Pomodoro"
-        sleep 0.10
-      done
-      printf "\r  $ok Pomodoro installed \n"
+      sudo apt-get install gnome-shell-pomodoro -y > /dev/null & PID=$!
+      LOAD_MESSAGE="Installing Pomodoro"
+      COMPLETE_MESSAGE="Pomodoro installed"
+      show_load;
     ;;
     "Sublime Merge")
-      sudo snap install sublime-merge --classic > /dev/null 2>&1 3>&1 &
-      PID=$!
-      while [ -d /proc/$PID ]
-      do
-        printf "\r  ${sp:i++%${#sp}:1} Installing Sublime Merge"
-        sleep 0.10
-      done
-      printf "\r  $ok Sublime Merge installed \n"
+      sudo snap install sublime-merge --classic > /dev/null 2>&1 3>&1 & PID=$!
+      LOAD_MESSAGE="Installing Sublime Merge"
+      COMPLETE_MESSAGE="Sublime Merge installed"
+      show_load;
     ;;
     "Syncthing")
-      sudo apt-get install apt-transport-https syncthing -y > /dev/null &
-      PID=$!
-      while [ -d /proc/$PID ]
-      do
-        printf "\r  ${sp:i++%${#sp}:1} Installing Syncthing"
-        sleep 0.10
-      done
-      printf "\r  $ok Syncthing installed (configuration needed) \n"
+      sudo apt-get install apt-transport-https syncthing -y > /dev/null & PID=$!
+      LOAD_MESSAGE="Installing Syncthing"
+      COMPLETE_MESSAGE="Syncthing installed (configuration needed)"
+      show_load;
     ;;
     "Veracrypt")
       curl -sSL -o $HOME/Downloads/veracrypt.deb https://launchpad.net/veracrypt/trunk/1.24-update7/+download/veracrypt-1.24-Update7-Ubuntu-20.10-amd64.deb && 
-      sudo dpkg -i $HOME/Downloads/veracrypt.deb >/dev/null &
-      PID=$!
-      while [ -d /proc/$PID ]
-      do
-        printf "\r  ${sp:i++%${#sp}:1} Installing Veracrypt"
-        sleep 0.10
-      done
-      printf "\r  $ok Veracrypt installed \n"
+      sudo dpkg -i $HOME/Downloads/veracrypt.deb >/dev/null & PID=$!
+      LOAD_MESSAGE="Installing Veracrypt"
+      COMPLETE_MESSAGE="Veracrypt installed"
+      show_load;
     ;;
     *)
     ;;

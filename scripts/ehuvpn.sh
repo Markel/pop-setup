@@ -6,30 +6,19 @@
 
 sudo -v # Check sudo
 
-sp="⠙⠸⠼⠴⠦⠧⠇⠏⠋"
-i=1
-
 ### Download the file from EHU's servers ###
-curl -sSL -o $HOME/Downloads/ehuvpn.tar.gz https://www.ehu.eus/documents/1870470/8671861/anyconnect-linux64-4.9.04053-predeploy-k9.tar.gz/4dd385f3-b0e9-e4bd-368b-5af2f5ebdb93?t=1608209263523 &
-PID=$!
-while [ -d /proc/$PID ]
-do
-  printf "\r  ${sp:i++%${#sp}:1} Downloading file"
-  sleep 0.10
-done
-printf "\r  $ok File downloaded \n"
+curl -sSL -o $HOME/Downloads/ehuvpn.tar.gz https://www.ehu.eus/documents/1870470/8671861/anyconnect-linux64-4.9.04053-predeploy-k9.tar.gz/4dd385f3-b0e9-e4bd-368b-5af2f5ebdb93?t=1608209263523 & PID=$!
+LOAD_MESSAGE="Downloading VPN"
+COMPLETE_MESSAGE="VPN downloaded"
+show_load
 
 ### Uncompressing ###
 rm -r $HOME/Downloads/ehuvpn 2> /dev/null
 mkdir $HOME/Downloads/ehuvpn
-tar xzf $HOME/Downloads/ehuvpn.tar.gz -C $HOME/Downloads/ehuvpn &
-PID=$!
-while [ -d /proc/$PID ]
-do
-  printf "\r  ${sp:i++%${#sp}:1} Extracting file"
-  sleep 0.10
-done
-printf "\r  $ok File extracted \n"
+tar xzf $HOME/Downloads/ehuvpn.tar.gz -C $HOME/Downloads/ehuvpn & PID=$!
+LOAD_MESSAGE="Extracting VPN"
+COMPLETE_MESSAGE="VPN extracted"
+show_load
 
 
 ### Start installing VPN ###
@@ -40,19 +29,16 @@ cd $HOME/Downloads/ehuvpn/$(ls $HOME/Downloads/ehuvpn | grep anyconnect)/vpn/
 #* not to show you the license an install the software. So we show the license with whiptail and later delete it.
 if (whiptail --scrolltext --title "Do you accept the terms in the license agreement?" --yesno "$(cat license.txt)" 20 78); then
     rm license.txt # That way it does not have to accept the license
-    sudo ./vpn_install.sh > /dev/null &
-    while [ -d /proc/$PID ]
-    do
-        printf "\r  ${sp:i++%${#sp}:1} Installing VPN"
-        sleep 0.10
-    done
+    sudo ./vpn_install.sh > /dev/null & PID=$!
+    LOAD_MESSAGE="Installing VPN"
+    COMPLETE_MESSAGE="VPN installed"
+    show_load
 else
     printf "\r  $bad VPN not installed \n"
     exit
 fi
 cd
-printf "\r  $ok VPN installed \n"
-printf "\r  ${sp:i++%${#sp}:1} Credential configuration"
+printf "\r$spaces\e[0;94m${sp:i++%${#sp}:1}\e[0;0m Credential configuration"
 sleep 0.1 # Just for cleanes
 
 

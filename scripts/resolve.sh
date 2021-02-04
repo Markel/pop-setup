@@ -7,10 +7,7 @@
 
 sudo -v # Check sudo
 
-sp="⠙⠸⠼⠴⠦⠧⠇⠏⠋"
-i=1
-
-ZIPNAME="foo"
+ZIPNAME="tempHopefully"
 
 show_zip_waiting() {
   if (whiptail --title "Download Davinci Resolve" --yesno "Please download the zip for linux from Blackmagic's official website (blackmagicdesign.com/products/davinciresolve/) an place it on Downloads (note: only one file in Downloads should have the name \"Resolve\"). Once done it press Yes. If you want to install Resolve later press No to stop the script." 12 78) then
@@ -42,52 +39,34 @@ fi
 
 ### Download ResolveDeb ###
 #* Just to be sure with grep instead of naming it MakeResolveDeb I named it MakeResolvDeb
-curl -sSL -o $HOME/Downloads/MakeResolvDeb.sh.tar.gz https://www.danieltufvesson.com/download/?file=makeresolvedeb/makeresolvedeb_1.4.4_multi.sh.tar.gz &
-PID=$!
-while [ -d /proc/$PID ]
-do
-  printf "\r  ${sp:i++%${#sp}:1} Downloading MakeResolveDeb"
-  sleep 0.10
-done
-printf "\r  $ok MakeResolveDeb downloaded  \n"
+curl -sSL -o $HOME/Downloads/MakeResolvDeb.sh.tar.gz https://www.danieltufvesson.com/download/?file=makeresolvedeb/makeresolvedeb_1.4.4_multi.sh.tar.gz & PID=$!
+LOAD_MESSAGE="Installing MakeResolveDeb"
+COMPLETE_MESSAGE="MakeResolveDeb installed"
+show_load
 
 ### Install dependencies and upzip them ###
 cd $HOME/Downloads
-sudo apt-get install xorriso libssl1.1 ocl-icd-opencl-dev fakeroot -y > /dev/null && tar -xf $HOME/Downloads/MakeResolvDeb.sh.tar.gz -C $HOME/Downloads && unzip $HOME/Downloads/$ZIPNAME -d $HOME/Downloads > /dev/null &
-PID=$!
-while [ -d /proc/$PID ]
-do
-  printf "\r  ${sp:i++%${#sp}:1} Getting things ready"
-  sleep 0.10
-done
-printf "\r  $ok Things ready             \n"
-
+sudo apt-get install xorriso libssl1.1 ocl-icd-opencl-dev fakeroot -y > /dev/null && tar -xf $HOME/Downloads/MakeResolvDeb.sh.tar.gz -C $HOME/Downloads && unzip $HOME/Downloads/$ZIPNAME -d $HOME/Downloads > /dev/null & PID=$!
+LOAD_MESSAGE="Getting things ready"
+COMPLETE_MESSAGE="Things ready"
+show_load
 
 ### Creating the .deb ###
 #RESOLVER=$(whiptail --title "Program instalation" --radiolist "Choose the programs to install:" 20 35 13 "lite" "The free one" on "studio" "The paid one" off 3>&1 1>&2 2>&3)
-
 RESOLVERNAME="$(ls $HOME/Downloads | grep makeresolvedeb)"
 
-./$RESOLVERNAME $(ls $HOME/Downloads | grep DaVinci_Resolve*.run) > resolver_output.txt &
-PID=$!
-while [ -d /proc/$PID ]
-do
-  printf "\r  ${sp:i++%${#sp}:1} Creating a Resolve installer"
-  sleep 0.10
-done
-printf "\r  $ok Resolve installer created     \n"
+./$RESOLVERNAME $(ls $HOME/Downloads | grep DaVinci_Resolve*.run) > resolver_output.txt & PID=$!
+LOAD_MESSAGE="Creating a Resolve installer (this may take a while...)"
+COMPLETE_MESSAGE="Resolve installer created"
+show_load
 
 
 ### Installing the .deb ###
 DEBNAME="$(ls $HOME/Downloads | grep davinci*.deb)"
 
-sudo dpkg -i $HOME/Downloads/$DEBNAME > dpkg_output.txt &
-PID=$!
-while [ -d /proc/$PID ]
-do
-  printf "\r  ${sp:i++%${#sp}:1} Installing Resolve"
-  sleep 0.10
-done
-printf "\r  $ok Resolve installed     \n"
+sudo dpkg -i $HOME/Downloads/$DEBNAME > dpkg_output.txt & PID=$!
+LOAD_MESSAGE="Installing Resolve"
+COMPLETE_MESSAGE="Resolve installed"
+show_load
 
 cd

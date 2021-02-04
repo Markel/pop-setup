@@ -13,10 +13,7 @@
 
 sudo -v # Check sudo
 
-sp="⠙⠸⠼⠴⠦⠧⠇⠏⠋"
-i=1
 attempts_remain=3+1
-
 ISONAME="Mathematica.iso"
 
 change_credentials() {
@@ -61,14 +58,10 @@ if [ $(ls $HOME/Downloads | grep Mathematica | wc -l) = "1" ]; then
       login_info
     done
     printf "\r  $ok Logged in to EHU's servers     \n"
-    curl -sSL -C - -o $HOME/Downloads/Mathematica.iso --user $EHUuser:$EHUpass https://www.ehu.eus/liz/m4s/mathematica_for_students/v12.1.1/Mathematica_12.1.1_LINUX.iso &
-    PID=$!
-    while [ -d /proc/$PID ]
-    do
-      printf "\r  ${sp:i++%${#sp}:1} Downloading Mathematica (this may take a while...)"
-      sleep 0.10
-    done
-    printf "\r  $ok Mathematica downloaded                                 \n"
+    curl -sSL -C - -o $HOME/Downloads/Mathematica.iso --user $EHUuser:$EHUpass https://www.ehu.eus/liz/m4s/mathematica_for_students/v12.1.1/Mathematica_12.1.1_LINUX.iso & PID=$!
+    LOAD_MESSAGE="Downloading Mathematica (this may take a while...)"
+    COMPLETE_MESSAGE="Mathematica downloaded"
+    show_load
   fi
 else
   #* Download the ISO as no is present (from 0)
@@ -78,35 +71,23 @@ else
     login_info
   done
   printf "\r  $ok Logged in to EHU's servers    \n"
-  curl -sSL -o $HOME/Downloads/Mathematica.iso --user $EHUuser:$EHUpass https://www.ehu.eus/liz/m4s/mathematica_for_students/v12.1.1/Mathematica_12.1.1_LINUX.iso &
-  PID=$!
-  while [ -d /proc/$PID ]
-  do
-    printf "\r  ${sp:i++%${#sp}:1} Downloading Mathematica (this may take a while...)"
-    sleep 0.10
-  done
-  printf "\r  $ok Mathematica downloaded                                 \n"
+  curl -sSL -o $HOME/Downloads/Mathematica.iso --user $EHUuser:$EHUpass https://www.ehu.eus/liz/m4s/mathematica_for_students/v12.1.1/Mathematica_12.1.1_LINUX.iso & PID=$!
+  LOAD_MESSAGE="Downloading Mathematica (this may take a while...)"
+  COMPLETE_MESSAGE="Mathematica downloaded"
+  show_load
 fi
 
 
 ### MOUNT ###
 sudo umount /mnt/iso > /dev/null 2>&1 3>&1
 sudo mkdir /mnt/iso > /dev/null 2>&1
-sudo mount -o loop "$HOME/Downloads/$ISONAME" /mnt/iso > /dev/null 2>&1 3>&1 &
-PID=$!
-while [ -d /proc/$PID ]
-do
-  printf "\r  ${sp:i++%${#sp}:1} Mounting instalation media"
-  sleep 0.10
-done
-printf "\r  $ok Instalation media mounted   \n"
+sudo mount -o loop "$HOME/Downloads/$ISONAME" /mnt/iso > /dev/null 2>&1 3>&1 & PID=$!
+LOAD_MESSAGE="Mounting instalation media"
+COMPLETE_MESSAGE="Instalation media mounted"
+show_load
 
 ### INSTALL ###
-sudo /mnt/iso/Unix/Installer/MathInstaller -auto -silent &
-PID=$!
-while [ -d /proc/$PID ]
-do
-  printf "\r  ${sp:i++%${#sp}:1} Installing Mathematica (this may take a while...)"
-  sleep 0.10
-done
-printf "\r  $ok Mathematica installed                                   \n"
+sudo /mnt/iso/Unix/Installer/MathInstaller -auto -silent & PID=$!
+LOAD_MESSAGE="Installing Mathematica (this may take a while...)"
+COMPLETE_MESSAGE="Mathematica installed"
+show_load
