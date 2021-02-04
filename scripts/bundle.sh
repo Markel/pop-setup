@@ -7,6 +7,7 @@
 sudo -v # Check sudo
 
 whiptail --title "Program instalation" --checklist --separate-output "Choose the programs to install:" 20 78 13 \
+  "AppImage" "AppImageLauncher integrates them to launchers" on \
   "Authy" "2FA Code manager" on \
   "GIMP" "GNU Image manipulation program" on \
   "gThumb" "A better image viewer" on \
@@ -20,6 +21,12 @@ whiptail --title "Program instalation" --checklist --separate-output "Choose the
 while read choice
 do
   case $choice in
+    "AppImage")
+      sudo add-apt-repository ppa:appimagelauncher-team/stable -y > /dev/null 2>&1 3>&1 && sudo apt-get install appimagelauncher -y > /dev/null & PID=$!
+      LOAD_MESSAGE="Installing AppImageLauncher"
+      COMPLETE_MESSAGE="AppImageLauncher installed"
+      show_load;
+    ;;
     "Authy")
       sudo snap install authy --beta > /dev/null 2>&1 3>&1 & PID=$!
       LOAD_MESSAGE="Installing Authy"

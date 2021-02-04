@@ -60,11 +60,10 @@ do
     LOAD_MESSAGE="Installing snap (requirement)"
     COMPLETE_MESSAGE="Snap installed (requirement)"
     show_load
+    break
   ;;
   esac
 done < selection
-
-
 
 ### COMMANDS ###
 while read choice
@@ -135,6 +134,7 @@ do
   esac
 done < selection
 
+spaces=""
 rm selection > /dev/null 2>&1 3>&1 && sudo apt-get -f install -y > /dev/null 2>&1 3>&1 && sleep 0.75 && killall -3 gnome-shell > /dev/null 2>&1 3>&1 && sleep 0.1 & # The sleeps are so the user doesn't scare
 PID=$!
 LOAD_MESSAGE="Finishing: You will experience visual glitches. Relax 😎"
