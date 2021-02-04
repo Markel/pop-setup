@@ -9,6 +9,10 @@ fi
 
 sudo -p "Become Super 🚀 with your password: " printf "\n" || exit 1 # Set a sudo state for the session
 
+#* Sudo restart
+mkdir $HOME/Documents/SetupInstaller/ > /dev/null 2>&1 3>&1
+rm $HOME/Documents/SetupInstaller/INSTALL_FINISHED > /dev/null
+
 #* Maintain sudo for all the sesion https://unix.stackexchange.com/a/261110 (modified version)
 while [ ! -f "$HOME/Documents/SetupInstaller/INSTALL_FINISHED" ]; do
   sleep 60 # Check every minute for sudo
@@ -182,7 +186,7 @@ do
 done < selection
 
 spaces=""
-rm selection > /dev/null 2>&1 3>&1 && sudo apt-get -f install -y > /dev/null 2>&1 3>&1 && sleep 0.75 && killall -3 gnome-shell > /dev/null 2>&1 3>&1 && sleep 0.1 & # The sleeps are so the user doesn't scare
+rm selection > /dev/null 2>&1 3>&1 && sudo apt-get -f install -y > /dev/null 2>&1 3>&1 && sleep 0.75 && killall -3 gnome-shell > /dev/null 2>&1 3>&1 && touch $HOME/Documents/SetupInstaller/INSTALL_FINISHED && sleep 0.1 & # The sleeps are so the user doesn't scare
 PID=$!
 LOAD_MESSAGE="Finishing: You will experience visual glitches. Relax 😎"
 COMPLETE_MESSAGE="Finished 🥳"
