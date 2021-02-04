@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [[ $(uname -n) != "pop-os" ]]
+then
+  printf "⚠️ This script is thought for Pop-OS, it may work in similar systems, but you are warned if it doesn't.\n"
+fi
+
 ### SUDO LEVELS ###
 if [[ $EUID -eq 0 ]]
 then
