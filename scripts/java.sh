@@ -4,7 +4,7 @@
 #! SNAP=TRUE
 #! DATE=2101
 
-sudo printf "" # Check sudo
+sudo -v # Check sudo
 
 sudo apt-get install snapd -y > /dev/null
 

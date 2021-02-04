@@ -4,7 +4,7 @@
 #! SNAP=FALSE
 #! DATE=2101
 
-sudo printf "" # Check sudo
+sudo -v # Check sudo
 
 sp="⠙⠸⠼⠴⠦⠧⠇⠏⠋"
 i=1

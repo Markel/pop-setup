@@ -11,7 +11,7 @@
 # NOTE: This script only works if you are a student from UPV/EHU as it uses its servers to download the Mathematica ISO, however, if you place a
 # ISO in your downloads folder it should work with it (take care that it must be the one with the MathInstaller script)
 
-sudo printf "" # Check sudo
+sudo -v # Check sudo
 
 sp="⠙⠸⠼⠴⠦⠧⠇⠏⠋"
 i=1

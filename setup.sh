@@ -1,12 +1,27 @@
 #!/bin/bash
 
-sudo printf "\n" # Set a sudo state for the session
+### SUDO LEVELS ###
+if [[ $EUID -eq 0 ]]
+then
+  printf "Please run the script as normal user.\n" >&2
+  exit 1
+fi
 
+sudo -p "Become Super 🚀 with your password: " printf "\n" || exit 1 # Set a sudo state for the session
+
+#* Maintain sudo for all the sesion https://unix.stackexchange.com/a/261110 (modified version)
+while [ ! -f "$HOME/Documents/SetupInstaller/INSTALL_FINISHED" ]; do
+  sleep 60 # Check every minute for sudo
+  sudo -v
+done &
+
+### GLOBAL VARIABLES ###
 sp="⠙⠸⠼⠴⠦⠧⠇⠏⠋"
 i=1
 export ok="\e[1;32m✔\e[0;0m"
 export bad="\e[0;31m✘\e[0;0m"
 
+### PREREQUISITES ###
 sudo apt-get update > /dev/null && sudo apt-get upgrade > /dev/null &
 PID=$!
 while [ -d /proc/$PID ]

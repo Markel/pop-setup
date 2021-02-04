@@ -5,7 +5,7 @@
 #! DATE=2102
 #! STATE=BETA
 
-sudo printf "" # Check sudo
+sudo -v # Check sudo
 
 sp="⠙⠸⠼⠴⠦⠧⠇⠏⠋"
 i=1

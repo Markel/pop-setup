@@ -4,7 +4,7 @@
 #! SNAP=FALSE
 #! DATE=2101
 
-sudo printf "" # Check sudo
+sudo -v # Check sudo
 
 sudo apt-get install sshpass sshfs -y > /dev/null
 
