@@ -18,14 +18,15 @@ sleep 0.15
 printf "\r$ok System updated and upgraded                   \n"
 
 ### Extensions selection ###
-whiptail --title "Markel Ferro's Setup" --checklist --separate-output "Choose with the space bar the snippets to execute:" 20 78 13 \
+whiptail --title "Markel Ferro's Setup" --checklist --separate-output "Choose with the space bar the snippets to execute (B is beta):" 20 78 13 \
   "EHU VPN" "\`ehuvpn\` will connect to EHU's VPN with your LDAP" off \
   "EHU SSH" "\`ehush\` will connect to EHU's SSH" off \
   "Java Dev" "Install JDK + Eclipse (optional)" off \
-  "Mathematica" "Download and install from EHU's servers" off \
   "LateX" "Use TeXlive with TeXstudio" on \
+  "Mathematica" "Download and install from EHU's servers (B)" off \
   "Node+NPM" "JS suite + Gitduck console (optional)" on \
   "Program bundle" "Install multiple programs" on \
+  "Resolve" "Install Blackmagic's DaVinci Resolve (B)" off \
   "VSCode" "Install VSCode with a selection of plugins" on 2>selection
 
 ### SNAP SUPPORT ###
@@ -103,6 +104,10 @@ do
     "Program bundle")
       printf "\rProgram bundle\n "
       curl -sSL setup.markel.dev/scripts/bundle.sh | bash -
+    ;;
+    "Resolve")
+      printf "\rDaVinci Resolve\n "
+      curl -sSL setup.markel.dev/scripts/resolve.sh | bash -
     ;;
     "VSCode")
       printf "\rVisual Studio Code\n "

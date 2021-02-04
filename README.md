@@ -37,3 +37,7 @@ Possible values:
 #### DATE
 
 A numeric value (yymm) (2101 = 01/2021) which represents when was it created (used to know if it is a legacy thing or not)
+
+#### STATE
+
+If beta appears in this script that means that this is a beta script

@@ -3,6 +3,7 @@
 #! SUDO=DOLLAR
 #! SNAP=FALSE
 #! DATE=2101
+#! STATE=BETA
 
 
 #! This scripts is untested (due to the long times of downloading and installing, so bear that in mind)
