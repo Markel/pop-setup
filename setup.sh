@@ -16,7 +16,7 @@ sudo -p "Become Super 🚀 with your password: " printf "\n" || exit 1 # Set a s
 
 #* Sudo restart
 mkdir $HOME/Documents/SetupInstaller/ > /dev/null 2>&1 3>&1
-rm $HOME/Documents/SetupInstaller/INSTALL_FINISHED > /dev/null
+rm $HOME/Documents/SetupInstaller/INSTALL_FINISHED > /dev/null 2>&1 3>&1
 
 #* Maintain sudo for all the sesion https://unix.stackexchange.com/a/261110 (modified version)
 while [ ! -f "$HOME/Documents/SetupInstaller/INSTALL_FINISHED" ]; do
@@ -53,7 +53,7 @@ export -f show_load
 
 ### PREREQUISITES ###
 if [ "$offline" != true ] ; then
-  sudo apt-get update > /dev/null && sudo apt-get upgrade -y > /dev/null & PID=$!
+  sudo apt-get update > /dev/null && sudo apt-get upgrade -y --allow-downgrades > /dev/null & PID=$!
   LOAD_MESSAGE="Preparations: Updating and upgrading system"
   COMPLETE_MESSAGE="System updated and upgraded"
   show_load
