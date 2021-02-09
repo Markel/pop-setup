@@ -53,7 +53,7 @@ export -f show_load
 
 ### PREREQUISITES ###
 if [ "$offline" != true ] ; then
-  sudo apt-get update > /dev/null && sudo apt-get upgrade > /dev/null & PID=$!
+  sudo apt-get update > /dev/null && sudo apt-get upgrade -y > /dev/null & PID=$!
   LOAD_MESSAGE="Preparations: Updating and upgrading system"
   COMPLETE_MESSAGE="System updated and upgraded"
   show_load
