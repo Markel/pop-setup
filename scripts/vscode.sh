@@ -58,7 +58,7 @@ do
     ;;
     "Visual Studio IntelliCode") code --install-extension VisualStudioExptTeam.vscodeintellicode
     ;;
-    "VSCode Icons") code --install-extension eg2.vscode-npm-script
+    "VSCode Icons") code --install-extension vscode-icons-team.vscode-icons
     ;;
     *)
     ;;
