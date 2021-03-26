@@ -2,7 +2,7 @@
 #! LOADING=INTEGRATED
 #! SUDO=DOLLAR
 #! SNAP=FALSE
-#! DATE=2101
+#! DATE=2103
 
 sudo -v # Check sudo
 
@@ -17,6 +17,9 @@ sudo dpkg -i $HOME/Downloads/vscode.deb >/dev/null & PID=$!
 LOAD_MESSAGE="Installing VSCode"
 COMPLETE_MESSAGE="VSCode installed"
 show_load
+
+### Establish preferences ###
+  printf "{\n    \"workbench.colorTheme\": \"GitHub Dark\",\n    \"window.titleBarStyle\": \"custom\",\n    \"workbench.iconTheme\": \"vscode-icons\"\n}" > ~/.config/Code/User/settings.json
 
 ### Extensions selection ###
 whiptail --title "Extension instalation" --checklist --separate-output "Choose the extensions to install (cancel if you want a clean setup):" 20 78 13 \
@@ -67,3 +70,5 @@ done < results >/dev/null 2>&1 & PID=$!
 LOAD_MESSAGE="Installing Extensions"
 COMPLETE_MESSAGE="Extensions installed"
 show_load
+
+rm results

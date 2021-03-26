@@ -61,6 +61,7 @@ fi
 
 ### Extensions selection ###
 whiptail --title "Markel Ferro's Setup" --checklist --separate-output "Choose with the space bar the snippets to execute (B is beta):" 20 78 13 \
+  "Power" "Open power settings to configure screens" on \
   "EHU VPN" "\`ehuvpn\` will connect to EHU's VPN with your LDAP" off \
   "EHU SSH" "\`ehush\` will connect to EHU's SSH" off \
   "Java Dev" "Install JDK + Eclipse (optional)" off \
@@ -100,6 +101,12 @@ do
     #   done
     #   printf "\r$ok Automatic login set for $USER          \n"
     # ;;
+    "Power")
+      gnome-control-center power > /dev/null 2>&1 3>&1 & PID=$!
+      LOAD_MESSAGE="Waiting power settings to be closed"
+      COMPLETE_MESSAGE="Power settings configured"
+      show_load
+    ;;
     "EHU VPN")
       printf "\rEHU VPN\n "
       spaces="  "
@@ -110,15 +117,14 @@ do
       fi
     ;;
     "EHU SSH")
-      spaces=""
+      printf "\r\e[0;94m${sp:i++%${#sp}:1}\e[0;0m Setting up the SSH"
       if [ "$offline" = true ] ; then
         ./scripts/ehussh.sh
       else
         curl -sSL setup.markel.dev/scripts/ehussh.sh | bash - 
-      fi & PID=$!
-      LOAD_MESSAGE="Setting up the SSH"
-      COMPLETE_MESSAGE="SSH Configuration"
-      show_load
+      fi
+      ceol=$(tput el)
+      printf "\r${ceol}$spaces$ok SSH Configuration\n"
     ;;
     "Java Dev") 
       printf "\rJava Development Environment\n "
@@ -191,9 +197,10 @@ do
 done < selection
 
 spaces=""
-rm selection > /dev/null 2>&1 3>&1 && sudo apt-get -f install -y > /dev/null 2>&1 3>&1 && sleep 0.75 && killall -3 gnome-shell > /dev/null 2>&1 3>&1 && touch $HOME/Documents/SetupInstaller/INSTALL_FINISHED && sleep 0.1 & # The sleeps are so the user doesn't scare
+# sleep 0.75 && killall -3 gnome-shell > /dev/null 2>&1 3>&1
+rm selection > /dev/null 2>&1 3>&1 && sudo apt-get -f install -y > /dev/null 2>&1 3>&1 && touch $HOME/Documents/SetupInstaller/INSTALL_FINISHED && sleep 0.1 & # The sleeps are so the user doesn't scare
 PID=$!
-LOAD_MESSAGE="Finishing: You will experience visual glitches. Relax 😎"
+LOAD_MESSAGE="Finishing: Relax 😎"
 COMPLETE_MESSAGE="Finished 🥳"
 show_load
 

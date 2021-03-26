@@ -2,7 +2,7 @@
 #! LOADING=INTEGRATED
 #! SUDO=DOLLAR
 #! SNAP=FALSE
-#! DATE=2101
+#! DATE=2103
 
 sudo -v # Check sudo
 
@@ -26,7 +26,7 @@ printf "\r  ${sp:i++%${#sp}:1} Installing VPN"
 cd $HOME/Downloads/ehuvpn/$(ls $HOME/Downloads/ehuvpn | grep anyconnect)/vpn/
 #* Okay, the installer normally asks you for a `y` during the instalation process to accept the license,
 #* which is located at the license.txt file. However, if you delete this file the installer simply decides
-#* not to show you the license an install the software. So we show the license with whiptail and later delete it.
+#* not to show you the license and install the software. So we show the license with whiptail and later delete it.
 if (whiptail --scrolltext --title "Do you accept the terms in the license agreement?" --yesno "$(cat license.txt)" 20 78); then
     rm license.txt # That way it does not have to accept the license
     sudo ./vpn_install.sh > /dev/null & PID=$!

@@ -2,11 +2,9 @@
 #! LOADING=INTEGRATED
 #! SUDO=DOLLAR
 #! SNAP=FALSE
-#! DATE=2101
-#! STATE=BETA
+#! DATE=2103
 
-
-#! This scripts is untested (due to the long times of downloading and installing, so bear that in mind)
+#! This scripts are not completely tested (due to the long times of downloading and installing, but they should work)
 
 # NOTE: This script only works if you are a student from UPV/EHU as it uses its servers to download the Mathematica ISO, however, if you place a
 # ISO in your downloads folder it should work with it (take care that it must be the one with the MathInstaller script)
@@ -79,15 +77,14 @@ fi
 
 
 ### MOUNT ###
-sudo umount /mnt/iso > /dev/null 2>&1 3>&1
-sudo mkdir /mnt/iso > /dev/null 2>&1
-sudo mount -o loop "$HOME/Downloads/$ISONAME" /mnt/iso > /dev/null 2>&1 3>&1 & PID=$!
-LOAD_MESSAGE="Mounting instalation media"
-COMPLETE_MESSAGE="Instalation media mounted"
+sudo apt-get install p7zip-full p7zip-rar -y > /dev/null 2>&1 3>&1 &&
+7z x ~/Downloads/Mathematica.iso -o$HOME/Downloads/Mathematica > /dev/null 2>&1 3>&1 & PID=$!
+LOAD_MESSAGE="Extracting Mathematica"
+COMPLETE_MESSAGE="Mathematica extracted"
 show_load
 
 ### INSTALL ###
-sudo /mnt/iso/Unix/Installer/MathInstaller -auto -silent & PID=$!
+sudo ~/Downloads/Mathematica/Unix/Installer/MathInstaller -auto -silent & PID=$!
 LOAD_MESSAGE="Installing Mathematica (this may take a while...)"
 COMPLETE_MESSAGE="Mathematica installed"
 show_load

@@ -2,7 +2,9 @@
 #! LOADING=EXTERNAL
 #! SUDO=DOLLAR
 #! SNAP=FALSE
-#! DATE=2101
+#! DATE=2103
+
+# Note, this is not a secure ssh connection, just so you know.
 
 sudo -v # Check sudo
 
@@ -36,7 +38,7 @@ else
 fi
 
 printf '\n%s' '# Comandos para el servidor linux de la uni' >> $HOME/.bash_aliases
-printf "\n%s" "alias ehush='sshpass -p \"\$EHUsshpass\" ssh $SERVER -l \$EHUsshuser'" >> $HOME/.bash_aliases
+printf "\n%s" "alias ehush='sshpass -p \"\$EHUsshpass\" ssh -o \"StrictHostKeyChecking no\" $SERVER -l \$EHUsshuser'" >> $HOME/.bash_aliases
 printf "\n%s\n" "alias vpnsh='ehuvpn && ehush'" >> $HOME/.bash_aliases
 
 if (whiptail --title "Mounting point" --yesno "Do you want to create a command for mounting the SSH server?" 8 78); then
