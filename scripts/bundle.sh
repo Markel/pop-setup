@@ -9,13 +9,14 @@ sudo -v # Check sudo
 whiptail --title "Program instalation" --checklist --separate-output "Choose the programs to install:" 20 78 13 \
   "AppImage" "AppImageLauncher integrates them to launchers" on \
   "Authy" "2FA Code manager" on \
+  "Digikam" "Libraries manager" off \
   "GDB" "General debugging program" on \
   "GIMP" "GNU Image manipulation program" on \
   "gParted" "Disk partitioning" off \
   "gThumb" "A better image viewer" on \
   "Inkscape" "Vector graphics editor" off \
   "OBS" "Open Broadcaster Software" on \
-  "Pomodoro" "Get things done by taking short breaks" on \
+  "Pomodoro" "Get things done by taking short breaks" off \
   "Sublime Merge" "Git Client, done Sublime" on \
   "Syncthing" "Continuous file synchronization program" on \
   "Tweaks" "Tweaking GNOME" on \
@@ -34,6 +35,14 @@ do
       sudo snap install authy --beta > /dev/null 2>&1 3>&1 & PID=$!
       LOAD_MESSAGE="Installing Authy"
       COMPLETE_MESSAGE="Authy installed"
+      show_load;
+    ;;
+    "Digikam")
+      mkdir $HOME/Applications > /dev/null 2>&1 3>&1 &&
+      curl -sSL -o $HOME/Applications/Digikam.deb $digikamURL &&
+      sudo chmod +x $HOME/Applications/Digikam.deb & PID=$!
+      LOAD_MESSAGE="Installing Digikam"
+      COMPLETE_MESSAGE="Digikam installed"
       show_load;
     ;;
     "GDB")

@@ -60,11 +60,21 @@ if [ "$offline" != true ] ; then
 fi
 
 ### Obtain some download links ###
-if [ "$offline" = true ] ; then
-  ./links.sh
-else
-  curl -sSL setup.markel.dev/links.sh | bash -
-fi
+  # Last updated: 03/2021. New link at: https://download.kde.org/stable/digikam/
+  export digikamURL="https://download.kde.org/stable/digikam/7.2.0/digiKam-7.2.0-x86-64.appimage"
+  # Last updated: 03/2021. New link at: https://www.ehu.eus/eu/web/ikt-tic/vpn
+  export EHUVPNURL="https://www.ehu.eus/documents/1870470/8671861/anyconnect-linux64-4.9.04053-predeploy-k9.tar.gz/4dd385f3-b0e9-e4bd-368b-5af2f5ebdb93?t=1608209263523"
+  # Last updated: 03/2021. New link at: https://www.ehu.eus/liz/m4s/mathematica_for_students/
+  export mathematicaPingURL="https://www.ehu.eus/liz/m4s/mathematica_for_students/v12.1.1/"
+  export mathematicaDownloadURL="https://www.ehu.eus/liz/m4s/mathematica_for_students/v12.1.1/Mathematica_12.1.1_LINUX.iso"
+  # Last updated: 03/2021. New link at: https://www.danieltufvesson.com/makeresolvedeb
+  export resolveddebURL="https://www.danieltufvesson.com/download/?file=makeresolvedeb/makeresolvedeb_1.4.5_multi.sh.tar.gz"
+  # Last updated: 03/2021. New link at: https://www.veracrypt.fr/en/Downloads.html
+  export veracryptURL="https://launchpad.net/veracrypt/trunk/1.24-update7/+download/veracrypt-1.24-Update7-Ubuntu-20.10-amd64.deb"
+  # Last updated: 03/2021. New link (it should auto update)
+  export VSCodeURL="https://update.code.visualstudio.com/latest/linux-deb-x64/stable"
+
+echo $digikamURL
 
 ### Extensions selection ###
 whiptail --title "Markel Ferro's Setup" --checklist --separate-output "Choose with the space bar the snippets to execute (B is beta):" 20 78 13 \
@@ -73,7 +83,7 @@ whiptail --title "Markel Ferro's Setup" --checklist --separate-output "Choose wi
   "EHU SSH" "\`ehush\` will connect to EHU's SSH" off \
   "Java Dev" "Install JDK + Eclipse (optional)" off \
   "LateX" "Use TeXlive with TeXstudio" on \
-  "Mathematica" "Download and install from EHU's servers (B)" off \
+  "Mathematica" "Download and install from EHU's servers" off \
   "Node+NPM" "JS suite + Gitduck console (optional)" on \
   "Program bundle" "Install multiple programs" on \
   "Resolve" "Install Blackmagic's DaVinci Resolve (B)" off \
