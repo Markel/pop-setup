@@ -7,7 +7,7 @@
 sudo -v # Check sudo
 
 ### Download latest VSCode version ###
-curl -sSL -o $HOME/Downloads/vscode.deb https://update.code.visualstudio.com/latest/linux-deb-x64/stable & PID=$!
+curl -sSL -o $HOME/Downloads/vscode.deb $VSCodeURL & PID=$!
 LOAD_MESSAGE="Downloading VSCode"
 COMPLETE_MESSAGE="VSCode downloaded"
 show_load

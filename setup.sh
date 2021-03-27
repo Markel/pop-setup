@@ -59,6 +59,13 @@ if [ "$offline" != true ] ; then
   show_load
 fi
 
+### Obtain some download links ###
+if [ "$offline" = true ] ; then
+  ./links.sh
+else
+  curl -sSL setup.markel.dev/links.sh | bash -
+fi
+
 ### Extensions selection ###
 whiptail --title "Markel Ferro's Setup" --checklist --separate-output "Choose with the space bar the snippets to execute (B is beta):" 20 78 13 \
   "Power" "Open power settings to configure screens" on \

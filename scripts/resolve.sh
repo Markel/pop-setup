@@ -39,7 +39,7 @@ fi
 
 ### Download ResolveDeb ###
 #* Just to be sure with grep instead of naming it MakeResolveDeb I named it MakeResolvDeb
-curl -sSL -o $HOME/Downloads/MakeResolvDeb.sh.tar.gz https://www.danieltufvesson.com/download/?file=makeresolvedeb/makeresolvedeb_1.4.4_multi.sh.tar.gz & PID=$!
+curl -sSL -o $HOME/Downloads/MakeResolvDeb.sh.tar.gz $resolveddebURL & PID=$!
 LOAD_MESSAGE="Installing MakeResolveDeb"
 COMPLETE_MESSAGE="MakeResolveDeb installed"
 show_load

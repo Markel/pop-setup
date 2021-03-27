@@ -7,7 +7,7 @@
 sudo -v # Check sudo
 
 ### Download the file from EHU's servers ###
-curl -sSL -o $HOME/Downloads/ehuvpn.tar.gz https://www.ehu.eus/documents/1870470/8671861/anyconnect-linux64-4.9.04053-predeploy-k9.tar.gz/4dd385f3-b0e9-e4bd-368b-5af2f5ebdb93?t=1608209263523 & PID=$!
+curl -sSL -o $HOME/Downloads/ehuvpn.tar.gz $EHUVPNURL & PID=$!
 LOAD_MESSAGE="Downloading VPN"
 COMPLETE_MESSAGE="VPN downloaded"
 show_load

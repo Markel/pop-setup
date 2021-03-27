@@ -98,7 +98,7 @@ do
       show_load;
     ;;
     "Veracrypt")
-      curl -sSL -o $HOME/Downloads/veracrypt.deb https://launchpad.net/veracrypt/trunk/1.24-update7/+download/veracrypt-1.24-Update7-Ubuntu-20.10-amd64.deb && 
+      curl -sSL -o $HOME/Downloads/veracrypt.deb $veracryptURL && 
       sudo dpkg -i $HOME/Downloads/veracrypt.deb > /dev/null 2>&1 3>&1 & PID=$!
       LOAD_MESSAGE="Installing Veracrypt"
       COMPLETE_MESSAGE="Veracrypt installed"

@@ -33,7 +33,7 @@ change_credentials() {
 login_info() {
   ((attempts_remain--))
   if [ $attempts_remain -le 0 ]; then
-    printf "\r  $bad Mathematica not downloaded nor installed. Error code: $(curl -o /dev/null --user $EHUuser:$EHUpass -s -w "%{http_code}\n" https://www.ehu.eus/liz/m4s/mathematica_for_students/v12.1.1/) \n"
+    printf "\r  $bad Mathematica not downloaded nor installed. Error code: $(curl -o /dev/null --user $EHUuser:$EHUpass -s -w "%{http_code}\n" $mathematicaPingURL) \n"
     exit
   fi
   whiptail --title "Login to EHU/UPV" --msgbox "You must login to the UPV/EHU servers to download Mathematica. Repeated fails may represent that the 12.1.1 version is not available anymore, file a bug in that case. Login has failed $attempts_remain times." 10 78
@@ -51,12 +51,12 @@ if [ $(ls $HOME/Downloads | grep Mathematica | wc -l) = "1" ]; then
   else
     #* Do not use the existing Mathematica ISO (finish the download)
     printf "\r  ${sp:i++%${#sp}:1} Logging in to EHU's servers"
-    while [ $(curl -o /dev/null --user $EHUuser:$EHUpass -s -w "%{http_code}\n" https://www.ehu.eus/liz/m4s/mathematica_for_students/v12.1.1/) != "200" ]
+    while [ $(curl -o /dev/null --user $EHUuser:$EHUpass -s -w "%{http_code}\n" $mathematicaPingURL) != "200" ]
     do
       login_info
     done
     printf "\r  $ok Logged in to EHU's servers     \n"
-    curl -sSL -C - -o $HOME/Downloads/Mathematica.iso --user $EHUuser:$EHUpass https://www.ehu.eus/liz/m4s/mathematica_for_students/v12.1.1/Mathematica_12.1.1_LINUX.iso & PID=$!
+    curl -sSL -C - -o $HOME/Downloads/Mathematica.iso --user $EHUuser:$EHUpass $mathematicaDownloadURL & PID=$!
     LOAD_MESSAGE="Downloading Mathematica (this may take a while...)"
     COMPLETE_MESSAGE="Mathematica downloaded"
     show_load
@@ -64,12 +64,12 @@ if [ $(ls $HOME/Downloads | grep Mathematica | wc -l) = "1" ]; then
 else
   #* Download the ISO as no is present (from 0)
   printf "\r  ${sp:i++%${#sp}:1} Logging in to EHU's servers"
-  while [ $(curl -o /dev/null --user $EHUuser:$EHUpass -s -w "%{http_code}\n" https://www.ehu.eus/liz/m4s/mathematica_for_students/v12.1.1/) != "200" ]
+  while [ $(curl -o /dev/null --user $EHUuser:$EHUpass -s -w "%{http_code}\n" $mathematicaPingURL) != "200" ]
   do
     login_info
   done
   printf "\r  $ok Logged in to EHU's servers    \n"
-  curl -sSL -o $HOME/Downloads/Mathematica.iso --user $EHUuser:$EHUpass https://www.ehu.eus/liz/m4s/mathematica_for_students/v12.1.1/Mathematica_12.1.1_LINUX.iso & PID=$!
+  curl -sSL -o $HOME/Downloads/Mathematica.iso --user $EHUuser:$EHUpass $mathematicaDownloadURL & PID=$!
   LOAD_MESSAGE="Downloading Mathematica (this may take a while...)"
   COMPLETE_MESSAGE="Mathematica downloaded"
   show_load
