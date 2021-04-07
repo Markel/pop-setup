@@ -74,8 +74,6 @@ fi
   # Last updated: 03/2021. New link (it should auto update)
   export VSCodeURL="https://update.code.visualstudio.com/latest/linux-deb-x64/stable"
 
-echo $digikamURL
-
 ### Extensions selection ###
 whiptail --title "Markel Ferro's Setup" --checklist --separate-output "Choose with the space bar the snippets to execute (B is beta):" 20 78 13 \
   "Power" "Open power settings to configure screens" on \
